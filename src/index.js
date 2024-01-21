@@ -23,14 +23,17 @@ function Header() {
   );
 }
 function Menu() {
+  const pizzas = pizzaData;
+  const numbPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
       <ul className="pizzas">
-        {pizzaData &&
-          pizzaData.map((pizza) => (
-            <Pizza key={pizza.name} pizzaObject={pizza} />
-          ))}
+        {numbPizzas > 0 ? (
+          pizzas.map((pizza) => <Pizza key={pizza.name} pizzaObject={pizza} />)
+        ) : (
+          <h1>We're still working on our menu. Please come later...</h1>
+        )}
       </ul>
     </main>
   );
@@ -43,7 +46,12 @@ function Pizza(props) {
       <div>
         <h3>{props.pizzaObject.name}</h3>
         <p>{props.pizzaObject.ingredients}</p>
-        <span>{props.pizzaObject.price}</span>
+
+        {props.pizzaObject.soldOut ? (
+          <span>sold out</span>
+        ) : (
+          <span>{props.pizzaObject.price}</span>
+        )}
       </div>
     </li>
   );
